@@ -7,7 +7,7 @@ class Item < ApplicationModel
   has_many :comments, as: :commentable, dependent: :destroy
 
   scope :only_public, -> { where scope: :public }
-  scope :recent_stocked, -> { select("*, stocks.created_at").joins(:stocks).order('stocks.created_at desc').uniq }
+  scope :recent_stocked, -> { select("items.*, stocks.created_at").joins(:stocks).order('stocks.created_at desc').uniq }
 
   def tag_list
     tags.map(&:name).join " "
