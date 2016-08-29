@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.2.5"
 
 gem 'rails', '4.2.3'
 gem 'mysql2', '0.3.20'
@@ -27,3 +28,9 @@ group :development do
   gem 'quiet_assets'
   gem 'html2haml'
 end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+

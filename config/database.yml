@@ -14,3 +14,8 @@ test:
   encoding: utf8
   database: qiita_copy_test
 
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: qiita_copy_production
+  pool: 5
