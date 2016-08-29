@@ -1,0 +1,16 @@
+development:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  database: qiita_copy_development
+  encoding: utf8
+
+test:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  encoding: utf8
+  database: qiita_copy_test
+

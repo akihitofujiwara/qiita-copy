@@ -1,0 +1,15 @@
+.container
+  .row
+    .col-md-3
+      %h2 User Detail
+      .field
+        = @user.email
+      .field
+        #{@user.followers_count} #{"follower".pluralize(@user.followers_count)}
+      .field
+        #{@user.stocked_items_count} stocked #{"item".pluralize(@user.stocked_items_count)}
+      - if user_signed_in?
+        = follow_link_of @user if current_user != @user
+    .col-md-9
+      %h2 Items
+      = render @user.items.latest(10)

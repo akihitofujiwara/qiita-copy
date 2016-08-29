@@ -1,0 +1,30 @@
+.container
+  .row
+    .col-md-12
+      %h2= @item.title
+      .subject-actions.pull-right
+        = stock_link_of(@item)
+        - if @item.author == current_user
+          = link_to "Edit", edit_item_path(@item), class: "btn btn-primary"
+          = link_to "Destroy", @item, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"
+  .row
+    .col-md-12
+      .field
+        #{"Tag".pluralize(@item.tags.size)}: #{render @item.tags}
+      .field
+        Author: #{render @item.author}
+      .field
+        Scope: #{@item.scope.titleize}
+      .field
+        #{@item.stockers_count} stockers
+      .body
+        %h2 Body
+        = @item.body.html_safe
+      .comments
+        - if @item.comments.length > 0
+          %h2 Comments
+          = render @item.comments
+        - if user_signed_in?
+          %h2 New comment
+          = render "comments/form"
+

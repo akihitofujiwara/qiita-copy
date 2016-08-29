@@ -1,0 +1,17 @@
+.container
+  .row
+    .col-md-12
+      .pull-right
+        #{@tag.followers_count} #{"follower".pluralize(@tag.followers_count)}
+        #{@tag.taggables_count} tagged #{"item".pluralize(@tag.taggables_count)}
+      %h2= @tag.name
+      - if user_signed_in?
+        = follow_link_of @tag
+
+      .recent-stocked-items
+        %h2 Recent Stocked Items
+        = render @tag.items.only_public.recent_stocked.limit(10)
+
+      .recent-items
+        %h2 Recent Items
+        = render @tag.items.only_public.latest(10)

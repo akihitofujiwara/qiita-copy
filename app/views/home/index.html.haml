@@ -1,0 +1,7 @@
+.container
+  - if user_signed_in?
+    = render "header"
+    = render current_user.followee_items
+  - else
+    = render "not_signed_in"
+
