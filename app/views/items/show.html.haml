@@ -1,30 +1,38 @@
+.header
+  .container
+    .row
+      .col-md-9
+        %h2= @item.title
+        .field
+          #{"Tag".pluralize(@item.tags.size)}: #{render @item.tags}
+        .field
+          Author: #{render @item.author}
+      .col-md-3
+        .stats.layout.horizontal.center
+          .flex.layout.vertical.center
+            .num= @item.stockers_count
+            .unit= "Stocker".pluralize(@item.stockers_count)
+          .flex.layout.vertical.center
+            .num= @item.comments_count
+            .unit= "Comment".pluralize(@item.comments_count)
+        .actions.layout.vertical
+          = stock_link_of @item, btn_type: "default"
+          - if @item.author == current_user
+            .layout.horizontal
+              = link_to "Edit", edit_item_path(@item), class: "flex btn btn-default"
+              = link_to "Destroy", @item, method: :delete, data: {confirm: "Are you sure?"}, class: "flex btn btn-danger"
 .container
   .row
     .col-md-12
-      %h2= @item.title
-      .subject-actions.pull-right
-        = stock_link_of(@item)
-        - if @item.author == current_user
-          = link_to "Edit", edit_item_path(@item), class: "btn btn-primary"
-          = link_to "Destroy", @item, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"
-  .row
-    .col-md-12
-      .field
-        #{"Tag".pluralize(@item.tags.size)}: #{render @item.tags}
-      .field
-        Author: #{render @item.author}
-      .field
-        Scope: #{@item.scope.titleize}
-      .field
-        #{@item.stockers_count} stockers
       .body
-        %h2 Body
         = @item.body.html_safe
-      .comments
-        - if @item.comments.length > 0
-          %h2 Comments
+      - if @item.comments.length > 0
+        %hr
+        .comments
           = render @item.comments
-        - if user_signed_in?
+      - if user_signed_in?
+        %hr
+        .new-comment
           %h2 New comment
           = render "comments/form"
 

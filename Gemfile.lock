@@ -38,7 +38,12 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
+    autoprefixer-rails (6.4.0.3)
+      execjs
     bcrypt (3.1.11)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.2)
     capybara (2.8.1)
       addressable
@@ -47,7 +52,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    commonjs (0.2.7)
     concurrent-ruby (1.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -86,14 +90,6 @@ GEM
     kansuu (0.0.5)
       lambda_driver (~> 1.2.4)
     lambda_driver (1.2.4)
-    less (2.6.0)
-      commonjs (~> 0.2.7)
-    less-rails (2.7.1)
-      actionpack (>= 4.0)
-      less (~> 2.6.0)
-      sprockets (> 2, < 4)
-      tilt
-    libv8 (3.16.14.15)
     livescript (2.3.1)
       execjs (~> 2.0)
       livescript-source (>= 1.4.0.rc.1, < 1.5.0)
@@ -154,7 +150,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.2.2)
-    ref (2.0.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rspec-core (3.5.2)
@@ -195,20 +190,12 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
-    twitter-bootstrap-rails (3.2.2)
-      actionpack (>= 3.1)
-      execjs (>= 2.2.2, >= 2.2)
-      less-rails (>= 2.5.0)
-      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.2)
@@ -222,6 +209,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
+  bootstrap-sass
   capybara
   devise
   devise-bootstrap-views
@@ -230,7 +219,6 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kansuu
-  less-rails
   livescript-rails
   mysql2 (= 0.3.20)
   pg
@@ -241,9 +229,7 @@ DEPENDENCIES
   sass-rails
   simple_form
   spring
-  therubyracer
   turbolinks
-  twitter-bootstrap-rails
   uglifier
 
 RUBY VERSION

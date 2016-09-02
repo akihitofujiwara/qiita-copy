@@ -1,4 +1,4 @@
-.row.item
+.row.item-box
   .col-md-12
     .fields
       Author:
@@ -6,10 +6,11 @@
       #{"Tag".pluralize(item.tags.size)}:
       = render item.tags
       .pull-right
-        = item.stockers_count
         %span.glyphicon.glyphicon-folder-open
-        = item.comments_count
+        = item.stockers_count
+        ・
         %span.glyphicon.glyphicon-comment
+        = item.comments_count
         = stock_link_of item
     .title
       = link_to item.title, [item.author, item]

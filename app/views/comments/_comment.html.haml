@@ -1,8 +1,9 @@
-Commented by
-= link_to comment.commenter.email, comment.commenter
-- if comment.commenter == current_user
-  .pull-right
-    = link_to "Destroy", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?"}
-.body
-  = comment.body
+.comment
+  Commented by
+  = link_to comment.commenter.email, comment.commenter
+  - if comment.commenter == current_user
+    .pull-right
+      = link_to "Destroy", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"
+  .body
+    = comment.body
 

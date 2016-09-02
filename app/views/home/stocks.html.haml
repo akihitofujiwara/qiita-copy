@@ -1,3 +1,3 @@
 .container
   = render 'header'
-  = render current_user.stocked_items.latest(10)
+  = render_unless_empty current_user.stocked_items.latest(10)

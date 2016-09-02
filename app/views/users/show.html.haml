@@ -1,15 +1,18 @@
 .container
   .row
-    .col-md-3
-      %h2 User Detail
-      .field
-        = @user.email
-      .field
-        #{@user.followers_count} #{"follower".pluralize(@user.followers_count)}
-      .field
-        #{@user.stocked_items_count} stocked #{"item".pluralize(@user.stocked_items_count)}
+    .col-md-3.layout.vertical.start
+      .glyphicon.glyphicon-user
+      = link_to @user.email, @user
       - if user_signed_in?
         = follow_link_of @user if current_user != @user
     .col-md-9
-      %h2 Items
-      = render @user.items.latest(10)
+      .layout.horizontal.stats
+        .flex.layout.vertical.center
+          .num= @user.followers_count
+          .unit= "Follower".pluralize(@user.followers_count)
+        .flex.layout.vertical.center
+          .num= @user.items.count
+          .unit= "Item".pluralize(@user.items.count)
+      %hr
+      %h3 Items
+      = render_unless_empty @user.items.latest(10)

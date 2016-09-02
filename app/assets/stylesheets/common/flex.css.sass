@@ -1,0 +1,37 @@
+.layout
+  &.horizontal, &.vertical
+    display: flex
+  &.horizontal
+    flex-direction: row
+  &.vertical
+    flex-direction: column
+  &.wrap
+    flex-wrap: wrap
+  &.nowrap
+    flex-wrap: nowrap
+  &.start
+    align-items: flex-start
+  &.center
+    align-items: center
+  &.end
+    align-items: flex-end
+  &.start-justified
+    justify-content: flex-start
+  &.center-justified
+    justify-content: center
+  &.end-justified
+    justify-content: flex-end
+  &.around-justified
+    justify-content: space-around
+  &.justified
+    justify-content: space-between
+
+.flex
+  flex: 1
+  flex-basis: 0.000000001px
+.flex-auto
+  flex: 1 1 auto
+
+@for $i from 1 through 12
+  .flex-#{$i}
+    flex: $i
