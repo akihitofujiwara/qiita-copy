@@ -18,6 +18,7 @@ gem 'kansuu'
 gem 'devise-bootstrap-views'
 gem 'bower-rails'
 gem 'omniauth-twitter'
+gem 'toastr_rails'
 
 group :test, :development do
   gem 'rspec-rails'

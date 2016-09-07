@@ -7,5 +7,6 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body{class: css_namespace}
+    = render 'toastr_rails/flash'
     = render 'layouts/header' if user_signed_in?
     = yield

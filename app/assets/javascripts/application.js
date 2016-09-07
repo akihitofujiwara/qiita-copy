@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require prelude-ls/browser/prelude-browser
-//= require prelude
+//= require toastr_rails
+//= require_tree ./config
 //= require_tree .
