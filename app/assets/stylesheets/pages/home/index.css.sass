@@ -1,8 +1,6 @@
-$bg-color: #f6f8f4
-
 &.index
   &.not-signed-in
-    background-color: $bg-color
+    background-color: #f6f8f4
     >.container
       padding-top: 80px
       .logo
@@ -26,5 +24,12 @@ $bg-color: #f6f8f4
           display: none
         a
           cursor: pointer
+        .register
+          >*:not(:last-child)
+            margin-bottom: 10px
+          .btn.btn-twitter
+            background: #55ACF7
+            border-color: #2795e9
+            color: white
 
-              
+                  

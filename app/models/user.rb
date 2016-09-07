@@ -1,6 +1,8 @@
 class User < ApplicationModel
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:twitter]
+  validates :username, presence: true, uniqueness: true
   has_many :items, foreign_key: :author_id, dependent: :destroy
   has_many :stocks, foreign_key: :stocker_id, dependent: :destroy
   has_many :stocked_items, through: :stocks, source: :stockable, source_type: "Item"
@@ -10,6 +12,22 @@ class User < ApplicationModel
   has_many :followee_tags, through: :followings_as_follower, source: :followee, source_type: "Tag"
   has_many :followee_users, through: :followings_as_follower, source: :followee, source_type: "User"
   has_many :comments, foreign_key: :commenter_id, dependent: :destroy
+
+  class << self
+    def new_with_session(params, session)
+      super.tap do |u|
+        if attrs = session["user_attrs"]
+          u.provider = attrs["provider"]
+          u.uid = attrs["uid"]
+          u.username = attrs["info"]["name"]
+        end
+      end
+    end
+  end
+
+  def password_required?
+    super && provider.blank?
+  end
 
   def followee_items
     Item

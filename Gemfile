@@ -17,6 +17,7 @@ gem 'autoprefixer-rails'
 gem 'kansuu'
 gem 'devise-bootstrap-views'
 gem 'bower-rails'
+gem 'omniauth-twitter'
 
 group :test, :development do
   gem 'rspec-rails'
