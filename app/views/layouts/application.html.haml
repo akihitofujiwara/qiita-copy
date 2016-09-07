@@ -7,5 +7,5 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body{class: css_namespace}
-    = render 'layouts/header'
+    = render 'layouts/header' if user_signed_in?
     = yield

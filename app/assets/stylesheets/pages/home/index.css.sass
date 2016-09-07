@@ -1,1 +1,30 @@
+$bg-color: #f6f8f4
+
 &.index
+  &.not-signed-in
+    background-color: $bg-color
+    >.container
+      padding-top: 80px
+      .logo
+        @include logo
+        font-size: 30px
+        padding: 8px 14px
+        background: $brand-primary
+        color: white
+      h1.copy
+        margin: 100px 0
+        line-height: 1.4
+        font-size: 30px
+        font-weight: normal
+        font-family: Consolas, monospace
+      .login, .signup
+        form
+          margin-bottom: 50px
+          input[type=submit]
+            margin-left: 1em
+        &:not(.active)
+          display: none
+        a
+          cursor: pointer
+
+              

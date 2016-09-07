@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require prelude-ls/browser/prelude-browser
+//= require prelude
 //= require_tree .

@@ -16,6 +16,7 @@ gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'kansuu'
 gem 'devise-bootstrap-views'
+gem 'bower-rails'
 
 group :test, :development do
   gem 'rspec-rails'
