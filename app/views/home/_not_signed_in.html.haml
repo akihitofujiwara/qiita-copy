@@ -14,8 +14,8 @@
           .flex= f.input :password, placeholder: "パスワード", label: false
           = f.submit "ログイン", class: "btn btn-primary"
       .register
-        .twitter.layout.horizontal
-          = link_to "Twitterで新規登録/ログイン", omniauth_authorize_path(:user, :twitter), class: "flex btn btn-twitter"
+        .twitter
+          = link_to "Twitterで新規登録/ログイン", omniauth_authorize_path(:user, :twitter), class: "btn btn-twitter btn-block"
         .mail
           または
           %a メールアドレスで登録

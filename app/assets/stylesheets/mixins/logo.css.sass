@@ -1,4 +1,9 @@
-@mixin logo
+@mixin logo($inverse: false)
   font-family: $brand-font
   font-weight: 900
+  @if $inverse == true
+    background: $brand-primary
+    color: white
+    
+  
 
