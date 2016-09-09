@@ -6,6 +6,7 @@ module Md2html
   end
 
   def convert(md)
+    return unless md.present?
     @renderer ||= Redcarpet::Markdown.new(
       HTMLwithCoderay.new(filter_html: true, hard_wrap: true),
       autolink: true, fenced_code_blocks: true)
