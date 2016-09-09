@@ -19,6 +19,8 @@ gem 'devise-bootstrap-views'
 gem 'bower-rails'
 gem 'omniauth-twitter'
 gem 'toastr_rails'
+gem 'redcarpet'
+gem 'coderay'
 
 group :test, :development do
   gem 'rspec-rails'

@@ -7,7 +7,10 @@ class Item < ApplicationModel
   has_many :comments, as: :commentable, dependent: :destroy
 
   scope :only_public, -> { where scope: :public }
+  scope :only_private, -> { where scope: :private }
   scope :recent_stocked, -> { select("items.*, stocks.created_at").joins(:stocks).order('stocks.created_at desc').uniq }
+
+  before_save :convert_crlf_to_lf_of_body
 
   def tag_list
     tags.map(&:name).join " "
@@ -20,5 +23,10 @@ class Item < ApplicationModel
       end
     )
   end
+
+  private
+    def convert_crlf_to_lf_of_body
+      tap { |it| it.body.gsub! /\r\n/, "\n" }
+    end
 end
 

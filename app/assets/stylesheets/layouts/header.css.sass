@@ -4,18 +4,13 @@ body
   > header
     border-bottom: 1px solid $border-color
     .row
-      height: 45px
+      height: $header-height
+      >*:last-child
+        >*:not(:last-child)
+          margin-right: 0.5em
       h1.logo
         margin: 0
         font-size: 200%
         a
           @include logo
           color: $brand-primary !important
-          &:hover
-            text-decoration: none
-
-      >*:last-child
-        >*:not(:last-child)
-          margin-right: 0.5em
-
-

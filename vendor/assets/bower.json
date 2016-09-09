@@ -1,6 +1,7 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "prelude-ls": "latest"
+    "prelude-ls": "latest",
+    "jquery-throttle-debounce": "latest"
   }
 }

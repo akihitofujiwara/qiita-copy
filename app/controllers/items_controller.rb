@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  include Md2html
+
   before_show :set_user_by_params, :set_item_by_params_from_user
   before_edit_or_update_or_destroy :set_item_by_params_from_current_user
   before_new :set_new_item_from_current_user
@@ -22,7 +24,11 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    redirect_to mines_path, notice: "Item was successfully destroyed."
+    redirect_to :back, notice: "Item was successfully destroyed."
+  end
+
+  def md2html
+    render json: {html: convert(params[:md])}
   end
 
   private

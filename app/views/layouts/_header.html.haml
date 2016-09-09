@@ -4,12 +4,20 @@
       %h1.logo
         = link_to "Qiita Copy", root_path
       .flex.layout.horizontal.end-justified.center
-        = link_to "投稿する", new_item_path, class: "btn btn-primary"
+        .btn-group.dropdown
+          = link_to new_item_path, class: "btn btn-primary" do
+            .glyphicon.glyphicon-edit
+            %span 投稿する
+          %a.btn.btn-primary.dropdown-toggle{type: "button", "data-toggle": "dropdown"}
+            .caret
+          %ul.dropdown-menu.dropdown-menu-right
+            %li= link_to "下書き", draft_items_path
+
         .dropdown
           %button.btn.btn-default.dropdown-toggle{type: "button", "data-toggle": "dropdown"}
             = current_user.username
             %span.caret
-          %ul.dropdown-menu
+          %ul.dropdown-menu.dropdown-menu-right
             %li= link_to "マイページ", current_user
             %li= link_to "設定", edit_user_registration_path
             %li= link_to "ログアウト", destroy_user_session_path, method: :delete

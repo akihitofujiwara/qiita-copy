@@ -1,0 +1,34 @@
+.container
+  .row
+    .col-md-3.sidebar
+      .headline.layout.horizontal.justified.center
+        %span 下書き一覧
+        = link_to new_item_path, class: "btn btn-primary" do
+          .glyphicon.glyphicon-pencil
+      %ul.nav.nav-tabs
+        %li.active{"data-toggle": "tab", "data-target": "#tab1"}= link_to "未投稿", "#"
+        %li{"data-toggle": "tab", "data-target": "#tab2"}= link_to "投稿済み", "#"
+      .tab-content
+        .tab-pane.active#tab1
+          - (items = current_user.items.only_private.newer).each do |item|
+            = render partial: "items/draft/item", locals: {item: item, active: item == items.first}
+        .tab-pane#tab2
+          - (items = current_user.items.only_public.newer).each do |item|
+            = render partial: "items/draft/item", locals: {item: item, active: false}
+    .col-md-9
+      - current_user.items.each do |item|
+        .preview{class: ("active" if item == current_user.items.first), "data-id": item.id}
+          .actions.layout.horizontal.justified.center
+            = link_to edit_item_path(item), class: "btn btn-default" do
+              .glyphicon.glyphicon-pencil
+              編集
+            = link_to item, method: :delete, class: "btn btn-link", data: {confirm: "Are you sure?"} do
+              .glyphicon.glyphicon-trash
+              削除
+          .content
+            %header
+              %h1.title= item.title
+              .tags
+                = render item.tags
+            .body~ md(item.body)
+

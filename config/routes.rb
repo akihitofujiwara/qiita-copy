@@ -5,11 +5,13 @@ Rails.application.routes.draw do
   }
 
   root to: "home#index"
-  get :items, to: "home#items"
+  get :all_items, to: "home#all_items"
   get :stocks, to: "home#stocks"
   get :mines, to: "home#mines"
+  post :md2html, to: "items#md2html"
 
   resources :items, only: %i(new edit create update destroy) do
+    get :draft, on: :collection
     resource :stock, only: %i(create destroy)
     resources :comments, only: %i(create destroy)
   end

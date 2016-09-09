@@ -1,8 +1,15 @@
-.col-sm-12
-  = simple_form_for @item, :html => { :class => 'form-horizontal' } do |f|
-    = f.input :title
-    = f.input :tag_list, label: "Tags"
-    = f.input :body, input_html: {cols: 100, rows: 10}
-    = f.select :scope, {"Private" => :private, "Public" => :public}
+= simple_form_for @item, :html => { :class => 'layout vertical' } do |f|
+  = f.error_notification
+  = f.input :title, placeholder: "タイトル", label: false
+  = f.input :tag_list, placeholder: "タグをスペース区切りで入力（例: Ruby Rails:4.2.0）", label: false
+  .layout.horizontal.body.flex
+    .flex.editor.layout.vertical
+      %header 本文
+      .flex= f.input :body, label: false
+    .flex.preview.layout.vertical
+      %header プレビュー
+      .flex.content~ md(@item.body)
+  .layout.horizontal.end-justified
+    //= f.select :scope, {"Private" => :private, "Public" => :public}
     = f.button :submit, "Save", class: "btn-primary"
 
