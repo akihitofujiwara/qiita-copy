@@ -6,13 +6,16 @@ module HomeHelper
   def render_unless_empty(items)
     items.length > 0 ?
       render(items)
-    : (<<"no-items"
+    : raw(message_when_empty)
+  end
+
+  def message_when_empty
+    <<"no-items"
 <p class="no-items">
   投稿はまだありません。
   <br>
-  <a href="/drafts/new">Qiita全体の投稿</a>を見て、あなたの持っているtips、コードを投稿したり、タグやユーザーをフォローしてみましょう!
+  <a href="/items/new">Qiita全体の投稿</a>を見て、あなたの持っているtips、コードを投稿したり、タグやユーザーをフォローしてみましょう!
 </p>
 no-items
-      ).html_safe
   end
 end

@@ -1,0 +1,13 @@
+.item-box
+  = render partial: "users/icon", locals: {user: user}
+  .content
+    .header= header
+    .title
+      %h1= link_to item.title, [item.author, item]
+      .tags= render item.tags
+  .status
+    = link_to item_stock_path(item), method: (current_user.stocks?(item) ? :delete : :post) do
+      .glyphicon.glyphicon-folder-open{class: ("active" if current_user.stocks? item)}
+    = item.stockers_count
+
+

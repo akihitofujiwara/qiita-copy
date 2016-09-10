@@ -1,4 +1,4 @@
-.item
+.item-box
   position: relative
   width: 100%
   padding: 15px 0 14px
@@ -35,19 +35,22 @@
     position: absolute
     top: 15px
     right: 0
+    font-size: 12px
     .glyphicon
       color: #ccc
       padding: 3px
       margin: -4px
       &.active
-        border: solid 1px #bbb
         color: #64d30e
   &:hover
     background-color: #f5f5f5
     >.status
-      .glyphicon:not(.active)
-        border: solid 1px #70eb0f
-        background-color: #c4f99a
+      .glyphicon
+        &.active
+          border: solid 1px #bbb
+        &:not(.active)
+          border: solid 1px #70eb0f
+          background-color: #c4f99a
 
 
 

@@ -30,16 +30,13 @@ class User < ApplicationModel
     super && provider.blank?
   end
 
-  def followee_items
-    Item
-      .only_public
-      .joins(:tags)
-      .joins(:author)
-      .joins('left join followings as ft on ft.followee_type = \'Tag\' and ft.followee_id = tags.id')
-      .joins('left join followings as fu on fu.followee_type = \'User\' and fu.followee_id = users.id')
-      .where('ft.follower_id = ? or fu.follower_id = ?', id, id)
-      .uniq
-      .latest(10)
+  def feeds
+    [
+      Tagging.where(tag_id: followee_tags.pluck(:id)),
+      Comment.where(commenter_id: (followee_user_ids = followee_users.pluck(:id))),
+      Stock.where(stocker_id: followee_user_ids),
+      Item.where(author_id: followee_user_ids)
+    ].inject(:+).sort_by(&:created_at).reverse.take(10)
   end
 
   def stocks?(item)

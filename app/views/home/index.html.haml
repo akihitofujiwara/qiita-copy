@@ -3,7 +3,10 @@
     - if user_signed_in?
       .col-md-12
         = render "header"
-        = render_unless_empty current_user.followee_items
+        - current_user.feeds.each do |feed|
+          = render partial: "home/feed", locals: {feed: feed}
+        - if current_user.feeds.empty?
+          = raw message_when_empty
     - else
       = render "not_signed_in"
 

@@ -1,0 +1,29 @@
+.feed
+  :ruby
+    arg = feed.class.name == "Item" ? feed : {
+      partial: "items/item_box",
+      locals: {
+        item: item = (
+          case feed.class.name
+          when "Tagging" then feed.taggable
+          when "Comment" then feed.commentable
+          when "Stock" then feed.stockable
+          end
+        ),
+        user: user = (
+          case feed.class.name
+          when "Tagging" then item.author
+          when "Comment" then feed.commenter
+          when "Stock" then feed.stocker
+          end
+        ),
+        header: (
+          case feed.class.name
+          when "Tagging" then (link_to feed.tag.name, feed.tag) + "に新しい投稿がありました"
+          when "Comment" then (link_to user.username, user) + "がコメントしました"
+          when "Stock" then (link_to user.username, user) + "がストックしました"
+          end
+        )
+      }
+    }
+  = render arg
