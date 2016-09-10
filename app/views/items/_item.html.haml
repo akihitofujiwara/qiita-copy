@@ -1,17 +1,14 @@
-.row.item-box
-  .col-md-12
-    .fields
-      Author:
-      = render item.author
-      #{"Tag".pluralize(item.tags.size)}:
-      = render item.tags
-      .pull-right
-        %span.glyphicon.glyphicon-folder-open
-        = item.stockers_count
-        ・
-        %span.glyphicon.glyphicon-comment
-        = item.comments_count
-        = stock_link_of item
+.item
+  = render partial: "users/icon", locals: {user: item.author}
+  .content
+    .header
+      = link_to item.author.username, item.author
+      = "が約#{time_ago_in_words item.published_at.try(:to_datetime)}前に投稿しました"
     .title
-      = link_to item.title, [item.author, item]
+      %h1= link_to item.title, [item.author, item]
+      .tags= render item.tags
+  .status
+    = link_to item_stock_path(item), method: (current_user.stocks?(item) ? :delete : :post) do
+      .glyphicon.glyphicon-folder-open{class: ("active" if current_user.stocks? item)}
+    = item.stockers_count
 

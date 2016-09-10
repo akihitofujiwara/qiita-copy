@@ -15,10 +15,9 @@
               = link_to draft_items_path do
                 .glyphicon.glyphicon-file
                 下書き
-        .dropdown
-          %button.btn.btn-default.dropdown-toggle{type: "button", "data-toggle": "dropdown"}
-            = current_user.username
-            %span.caret
+        .user-menu.dropdown
+          %a.dropdown-toggle{"data-toggle": "dropdown"}
+            = render partial: "users/icon", locals: {user: current_user}
           %ul.dropdown-menu.dropdown-menu-right
             %li= link_to "マイページ", current_user
             %li= link_to "設定", edit_user_registration_path

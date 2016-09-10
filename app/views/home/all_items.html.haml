@@ -1,3 +1,5 @@
 .container
-  = render "header"
-  = render_unless_empty @items.only_public.latest(10)
+  .row
+    .col-md-12
+      = render "header"
+      = render_unless_empty @items.only_public.newer

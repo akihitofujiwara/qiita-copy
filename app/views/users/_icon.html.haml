@@ -1,0 +1,5 @@
+%span.user-icon
+  - if user.icon_url.present?
+    %img{src: user.icon_url}
+  - else
+    .no-image.glyphicon.glyphicon-user

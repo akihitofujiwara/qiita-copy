@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907042241) do
+ActiveRecord::Schema.define(version: 20160910042515) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160907042241) do
     t.string   "scope",          limit: 255,               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "published_at"
   end
 
   add_index "items", ["author_id"], name: "index_items_on_author_id", using: :btree
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(version: 20160907042241) do
     t.string   "username",               limit: 255
     t.string   "provider",               limit: 255
     t.string   "uid",                    limit: 255
+    t.string   "icon_url",               limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -8,9 +8,12 @@ class Item < ApplicationModel
 
   scope :only_public, -> { where scope: :public }
   scope :only_private, -> { where scope: :private }
+  scope :only_published, -> { where.not published_at: nil }
+  scope :only_not_published, -> { where published_at: nil }
   scope :recent_stocked, -> { select("items.*, stocks.created_at").joins(:stocks).order('stocks.created_at desc').uniq }
 
-  before_save :convert_crlf_to_lf_of_body
+  after_initialize :set_default_value, if: :new_record?
+  before_save :convert_crlf_to_lf_of_body, :set_published_at
 
   def tag_list
     tags.map(&:name).join " "
@@ -31,6 +34,14 @@ class Item < ApplicationModel
   private
     def convert_crlf_to_lf_of_body
       tap { |it| it.body.gsub! /\r\n/, "\n" }
+    end
+
+    def set_published_at
+      self.published_at = Time.zone.now if scope_changed? && public?
+    end
+
+    def set_default_value
+      self.scope ||= "public"
     end
 end
 

@@ -1,0 +1,54 @@
+.item
+  position: relative
+  width: 100%
+  padding: 15px 0 14px
+  margin: 0
+  border-bottom: 1px $border-color solid
+  @include user-icon(40px)
+  >.user-icon
+    display: inline-block
+    vertical-align: top
+    position: relative
+  >.content
+    margin-top: -43px
+    margin-left: 50px
+    >.header
+      font-size: 12px
+      color: #555
+      >a
+        font-weight: 600
+        color: #4a4a4a
+    >.title
+      >h1
+        display: inline
+        line-height: 24px
+        font-size: 16px
+        font-weight: 900
+        a
+          color: #337ab7
+          &:visited
+            color: #685987
+      >.tags
+        display: inline
+        margin: 0
+  >.status
+    position: absolute
+    top: 15px
+    right: 0
+    .glyphicon
+      color: #ccc
+      padding: 3px
+      margin: -4px
+      &.active
+        border: solid 1px #bbb
+        color: #64d30e
+  &:hover
+    background-color: #f5f5f5
+    >.status
+      .glyphicon:not(.active)
+        border: solid 1px #70eb0f
+        background-color: #c4f99a
+
+
+
+

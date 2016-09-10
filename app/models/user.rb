@@ -20,6 +20,7 @@ class User < ApplicationModel
           u.provider = attrs["provider"]
           u.uid = attrs["uid"]
           u.username = attrs["info"]["name"]
+          u.icon_url = attrs["info"]["image"]
         end
       end
     end
