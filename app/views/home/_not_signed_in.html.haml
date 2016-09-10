@@ -1,32 +1,31 @@
-.row
-  .col-md-7
-    %span.logo
-      Qiita Copy
-    %h1.copy
-      Qiita Copyは、プログラマのための
-      %br
-      技術情報共有サービスです。
-  .col-md-5
-    .login.active
-      = simple_form_for(:user, url: new_user_session_path) do |f|
-        = f.input :email, placeholder: "メールアドレス", label: false
-        .layout.horizontal.start
-          .flex= f.input :password, placeholder: "パスワード", label: false
-          = f.submit "ログイン", class: "btn btn-primary"
-      .register
-        .twitter
-          = link_to "Twitterで新規登録/ログイン", omniauth_authorize_path(:user, :twitter), class: "btn btn-twitter btn-block"
-        .mail
-          または
-          %a メールアドレスで登録
-          する
+.col-md-7
+  %span.logo
+    Qiita Copy
+  %h1.copy
+    Qiita Copyは、プログラマのための
+    %br
+    技術情報共有サービスです。
+.col-md-5
+  .login.active
+    = simple_form_for(:user, url: new_user_session_path) do |f|
+      = f.input :email, placeholder: "メールアドレス", label: false
+      .layout.horizontal.start
+        .flex= f.input :password, placeholder: "パスワード", label: false
+        = f.submit "ログイン", class: "btn btn-primary"
+    .register
+      .twitter
+        = link_to "Twitterで新規登録/ログイン", omniauth_authorize_path(:user, :twitter), class: "btn btn-twitter btn-block"
+      .mail
+        または
+        %a メールアドレスで登録
+        する
 
-    .signup
-      = simple_form_for(:user, url: registration_path(:user)) do |f|
-        = f.input :username, placeholder: "ユーザー名", label: false
-        = f.input :email, placeholder: "メールアドレス", label: false
-        = f.input :password, placeholder: "パスワード", label: false
-        .layout.horizontal.end-justified.center
-          %a キャンセル
-          = f.submit "登録", class: "btn btn-primary"
+  .signup
+    = simple_form_for(:user, url: registration_path(:user)) do |f|
+      = f.input :username, placeholder: "ユーザー名", label: false
+      = f.input :email, placeholder: "メールアドレス", label: false
+      = f.input :password, placeholder: "パスワード", label: false
+      .layout.horizontal.end-justified.center
+        %a キャンセル
+        = f.submit "登録", class: "btn btn-primary"
 
