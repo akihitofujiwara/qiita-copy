@@ -2,6 +2,7 @@
   = f.error_notification
   = f.input :title, placeholder: "タイトル", label: false
   = f.input :tag_list, placeholder: "タグをスペース区切りで入力（例: Ruby Rails:4.2.0）", label: false
+  = f.input :scope, :as => :hidden, :input_html => { :value => @item.scope || "public"}
   .layout.horizontal.body.flex
     .flex.editor.layout.vertical
       %header 本文
@@ -9,7 +10,24 @@
     .flex.preview.layout.vertical
       %header プレビュー
       .flex.content~ md(@item.body)
-  .layout.horizontal.end-justified
-    //= f.select :scope, {"Private" => :private, "Public" => :public}
-    = f.button :submit, "Save", class: "btn-primary"
+  .actions.layout.horizontal.end-justified
+    .btn-group.dropup
+      %button.btn.btn-primary{type: "submit"}
+        %span{"data-scope": "private", class: ("selected" if @item.private?)}
+          .glyphicon.glyphicon-save-file
+          下書き保存
+        %span{"data-scope": "public", class: ("selected" if @item.public?)}
+          .glyphicon.glyphicon-cloud-upload
+          投稿する
+      %a.btn.btn-primary.dropdown-toggle{type: "button", "data-toggle": "dropdown"}
+        .caret
+      %ul.dropdown-menu.dropdown-menu-right
+        %li{"data-scope": "private", class: ("selected" if @item.private?)}
+          %a
+            .glyphicon.glyphicon-save-file
+            下書き保存
+        %li{"data-scope": "public", class: ("selected" if @item.public?)}
+          %a
+            .glyphicon.glyphicon-cloud-upload
+            投稿する
 

@@ -11,8 +11,10 @@
           %a.btn.btn-primary.dropdown-toggle{type: "button", "data-toggle": "dropdown"}
             .caret
           %ul.dropdown-menu.dropdown-menu-right
-            %li= link_to "下書き", draft_items_path
-
+            %li
+              = link_to draft_items_path do
+                .glyphicon.glyphicon-file
+                下書き
         .dropdown
           %button.btn.btn-default.dropdown-toggle{type: "button", "data-toggle": "dropdown"}
             = current_user.username

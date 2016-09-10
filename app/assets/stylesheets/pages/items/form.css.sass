@@ -33,3 +33,21 @@ $header-height: 36px
         height: calc(100% - #{$header-height})
         overflow: scroll
         padding: 6px 12px
+  .actions
+    padding: 4px 10px
+    background-color: #eee
+    .dropup
+      button
+        >span:not(.selected)
+          display: none
+      .dropdown-menu
+        li
+          &.selected:before
+            content: '✓'
+            position: absolute
+            left: 5px
+            font-size: 20px
+          a
+            padding-left: 30px
+
+

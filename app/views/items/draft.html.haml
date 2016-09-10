@@ -17,7 +17,7 @@
             = render partial: "items/draft/item", locals: {item: item, active: false}
     .col-md-9
       - current_user.items.each do |item|
-        .preview{class: ("active" if item == current_user.items.first), "data-id": item.id}
+        .preview{class: ("active" if item == current_user.items.only_private.first), "data-id": item.id}
           .actions.layout.horizontal.justified.center
             = link_to edit_item_path(item), class: "btn btn-default" do
               .glyphicon.glyphicon-pencil

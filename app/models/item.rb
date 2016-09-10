@@ -24,6 +24,10 @@ class Item < ApplicationModel
     )
   end
 
+  def public?; scope == "public" end
+
+  def private?; scope == "private" end
+
   private
     def convert_crlf_to_lf_of_body
       tap { |it| it.body.gsub! /\r\n/, "\n" }
