@@ -3,21 +3,22 @@
     .col-md-12
       .layout.horizontal.center
         %h2= @tag.name
-        - if user_signed_in?
-          = follow_link_of @tag
+        = render partial: "followees/follow_link", locals: {followee: @tag}
       %hr
       .stats.layout.horizontal
         .flex.layout.vertical.center
           .num= @tag.taggables_count
-          .unit= "Item".pluralize(@tag.taggables_count)
+          .unit 投稿
         .flex.layout.vertical.center
           .num= @tag.followers_count
-          .unit= "Follower".pluralize(@tag.followers_count)
+          .unit フォロワー
       %hr
       .recent-stocked-items
-        %h4 Recent Stocked Items
-        = render_unless_empty @tag.items.only_public.recent_stocked.limit(10)
+        %h4 最近ストックされた投稿
+        = render (items = @tag.items.only_public.recent_stocked.limit(10))
+        - if items.length == 0
+          最近ストックされた投稿はありません。
       %hr
       .recent-items
-        %h4 Recent Items
-        = render_unless_empty @tag.items.only_public.latest(10)
+        %h4 新着投稿
+        = render (items = @tag.items.only_public.latest(10))

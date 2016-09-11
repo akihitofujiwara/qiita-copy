@@ -5,7 +5,7 @@
       .profile
         %h3= @user.username
         - if user_signed_in? && current_user != @user
-          = render partial: "users/follow", locals: {followee: @user}
+          = render partial: "followees/follow_link", locals: {followee: @user}
     .col-md-9
       .layout.horizontal.stats
         .flex.layout.vertical.center
