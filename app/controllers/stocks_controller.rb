@@ -1,5 +1,5 @@
 class StocksController < ApplicationController
-  before_create_or_destroy :set_item_by_params
+  before_action :set_item, only: %w(create destroy)
 
   def create
     current_user.stock @item
@@ -9,5 +9,10 @@ class StocksController < ApplicationController
   def destroy
     current_user.unstock @item
     redirect_to :back
+  end
+
+  private
+  def set_item
+    @item = Item.find params[:item_id]
   end
 end

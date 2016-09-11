@@ -2,4 +2,4 @@
   .row
     .col-md-12
       = render "header"
-      = render_unless_empty @items.only_public.newer
+      = render_unless_empty Item.only_public.newer

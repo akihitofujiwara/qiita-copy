@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_create_or_destroy :set_item_by_params
-  before_destroy :set_comment_by_params_from_item
+  before_action :set_item, only: %i(create destroy)
+  before_action :set_comment, only: %i(destroy)
 
   def create
     current_user.comments.create (comment_params.merge commentable: @item)
@@ -15,5 +15,13 @@ class CommentsController < ApplicationController
   private
   def comment_params
     params.require(:comment).permit(:body)
+  end
+
+  def set_item
+    @item = Item.find params[:item_id]
+  end
+
+  def set_comment
+    @comment = @item.comments.find params[:id]
   end
 end

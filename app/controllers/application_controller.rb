@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  include ResourcesSetter
-
   before_action :configure_devise_params, if: :devise_controller?
   protect_from_forgery with: :exception
 

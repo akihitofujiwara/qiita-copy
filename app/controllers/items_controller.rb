@@ -1,9 +1,12 @@
 class ItemsController < ApplicationController
   include Md2html
 
-  before_show :set_user_by_params, :set_item_by_params_from_user
-  before_edit_or_update_or_destroy :set_item_by_params_from_current_user
-  before_new :set_new_item_from_current_user
+  before_action :set_user, only: %i(show)
+  before_action :set_item, only: %i(show edit update destroy)
+
+  def new
+    @item = current_user.items.build
+  end
 
   def create
     @item = current_user.items.build item_params
@@ -39,5 +42,13 @@ class ItemsController < ApplicationController
   private
   def item_params
     params.require(:item).permit(:title, :body, :tag_list, :scope)
+  end
+
+  def set_user
+    @user = User.find params[:user_id]
+  end
+
+  def set_item
+    @item = (@user || current_user).items.find params[:id]
   end
 end

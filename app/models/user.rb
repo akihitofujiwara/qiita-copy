@@ -36,7 +36,7 @@ class User < ApplicationModel
       Comment.where(commenter_id: (followee_user_ids = followee_users.pluck(:id))),
       Stock.where(stocker_id: followee_user_ids),
       Item.where(author_id: followee_user_ids)
-    ].inject(:+).sort_by(&:created_at).reverse.take(10)
+    ].inject(:+).sort_by(&:created_at).reverse
   end
 
   def stocks?(item)
