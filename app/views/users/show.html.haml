@@ -1,10 +1,11 @@
 .container
   .row
     .col-md-3.layout.vertical.start
-      .glyphicon.glyphicon-user
-      = link_to @user.email, @user
-      - if user_signed_in?
-        = follow_link_of @user if current_user != @user
+      = render partial: "users/icon", locals: {user: @user}
+      .profile
+        %h3= @user.username
+        - if user_signed_in? && current_user != @user
+          = render partial: "users/follow", locals: {followee: @user}
     .col-md-9
       .layout.horizontal.stats
         .flex.layout.vertical.center

@@ -1,17 +1,34 @@
 &.show
-  .row > *
-    padding: 1em
-  .col-md-3
-    > .glyphicon-user
-      font-size: 21vw
-    >*:not(:last-child)
-      margin-bottom: 10px
-  .col-md-9
-    .stats
-      >.flex
-        >.num
-          font-size: 250%
-          font-weight: 700
-        >.unit
-          font-size: 130%
+  >.container
+    margin-top: 20px
+    .col-md-3
+      @include user-icon(100%)
+      >.user-icon
+        width: 100%
+        margin-bottom: 20px
+        >img
+          border-radius: 6px
+        .no-image
+          font-size: 22vw
+          text-align: center
+          @media (min-width: #{$screen-md})
+            font-size: calc(970px * 0.22)
+          @media (min-width: #{$screen-lg})
+            font-size: calc(1170px * 0.22)
+      >.profile
+        h3
+          margin: 0
+    .col-md-9
+      .stats
+        >.flex
+          >.num
+            font-size: 250%
+            font-weight: 700
+          >.unit
+            font-size: 130%
 
+.follow-link
+  a
+    width: 120px
+    >span:not(.active)
+      display: none
