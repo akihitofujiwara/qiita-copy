@@ -12,9 +12,40 @@ body
       h1.logo
         margin: 0
         font-size: 200%
+        padding-right: 16px
         a
           @include logo
           color: $brand-primary !important
+      .search
+        position: relative
+        display: inline-block
+        margin-right: 5px !important
+        input[type=search]
+          display: inline-block
+          width: auto
+          vertical-align: middle
+          padding: 6px 20px 6px 8px !important
+        .button
+          border-bottom-right-radius: 3px
+          border-top-right-radius: 3px
+          color: #999
+          display: inline-block
+          height: 32px
+          line-height: 32px
+          margin-left: -27px
+          text-align: center
+          vertical-align: middle
+          width: 25px
+          z-index: 1
+          &:hover
+            cursor: pointer
+            color: #555
+            background-color: rgba(0,0,0,0.04)
+        .dropdown-menu
+          padding: 15px
+          width: 350px
+          >*:not(:last-child)
+            margin-bottom: 10px
       .user-menu
         a.dropdown-toggle
           display: block

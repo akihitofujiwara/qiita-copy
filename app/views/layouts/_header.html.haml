@@ -3,6 +3,19 @@
     .row.layout.horizontal.center
       %h1.logo
         = link_to "Qiita Copy", root_path
+      .search.dropdown
+        %form{action: search_items_path}
+          %input.form-control{type: "search", name: "q", placeholder: "キーワードを入力"}
+          .button.dropdown-toggle{type: "button", "data-toggle": "dropdown"}
+            .caret
+          .dropdown-menu
+            %div
+              %label ユーザーを指定
+              %input.support.form-control{placeholder: "例) qiitan", "data-type": "user"}
+            %div
+              %label タグを指定
+              %input.support.form-control{placeholder: "例) Ruby フレームワーク", "data-type": "tag"}
+          %button.btn.btn-default{type: "submit"} 検索
       .flex.layout.horizontal.end-justified.center
         .btn-group.dropdown
           = link_to new_item_path, class: "btn btn-primary" do

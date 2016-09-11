@@ -1,0 +1,28 @@
+.container
+  .row
+    .col-md-8
+      .search
+        %form.layout.horizontal{action: search_items_path}
+          %input.form-control.flex-6{type: "search", name: "q", placeholder: "キーワードを入力"}
+          %button.btn.btn-primary.flex-1{type: "submit"}
+            .glyphicon.glyphicon-search
+              検索
+      %ul.nav.nav-tabs
+        %li.active{"data-toggle": "tab", "data-target": "#tab1"}= link_to "すべて", "#"
+        %li{"data-toggle": "tab", "data-target": "#tab2"}= link_to "ストック済み", "#"
+      .tab-content
+        .tab-pane.active#tab1
+          = render @items.newer
+        .tab-pane#tab2
+          = render @stocked_items.newer
+    .col-md-4
+      .help.panel.panel-default
+        .panel-heading
+          .glyphicon.glyphicon-search
+          検索オプション
+        .panel-body
+          %dl
+            %dt tag:Rails
+            %dd 「Rails」タグが付いている
+            %dt user:#{current_user.username}
+            %dd #{current_user.username} が作成した

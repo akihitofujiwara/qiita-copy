@@ -31,6 +31,11 @@ class ItemsController < ApplicationController
     render json: {html: convert(params[:md])}
   end
 
+  def search
+    @items = Item.search(params[:q])
+    @stocked_items = current_user.stocked_items.search(params[:q])
+  end
+
   private
   def item_params
     params.require(:item).permit(:title, :body, :tag_list, :scope)

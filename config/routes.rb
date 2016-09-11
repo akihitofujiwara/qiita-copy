@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :items, only: %i(new edit create update destroy) do
     get :draft, on: :collection
+    get :search, on: :collection
     resource :stock, only: %i(create destroy)
     resources :comments, only: %i(create destroy)
   end
