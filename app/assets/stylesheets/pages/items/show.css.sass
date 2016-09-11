@@ -1,11 +1,25 @@
 &.show
-  .header
+  >.header
     padding: 30px 0
     background-color: $brand-tertiary
     color: white
     h2
-      font-size: 230%
+      word-wrap: break-word
+      word-break: break-all
+      line-height: 1.4
+      font-size: 34px
+      font-weight: 400
       margin-top: 0
+      margin-bottom: 15px
+    .tags
+      margin-bottom: 10px
+    .author
+      @include user-icon(25px)
+      margin: 20px 0 10px 0
+      a
+        color: white
+        &:hover
+          text-decoration: underline
     .col-md-3
       .stats
         margin-bottom: 1em
@@ -14,8 +28,40 @@
             font-size: 150%
           >.unit
             font-size: 100%
-  .comments
-    .comment
-      padding: 1em 0
+      .actions
+        .stock-link
+          a
+            width: 100%
+            &.btn-primary
+              background-color: rgba(255,255,255,0.08) !important
+              border-color: rgba(0,0,0,0.25) !important
+            .glyphicon
+              color: #64d30e
+        .own
+          margin-top: 10px
+  .body
+    margin-bottom: 50px
+  .comments-area
+    @include user-icon(36px)
+    .user-icon
+      margin-right: 10px
+    .comments
+      .comment
+        padding: 1em 0
+        font-size: 15px
+        font-weight: 600
+        .pull-right
+          font-weight: normal
+        .body
+          padding: 18px 32px
+          margin: 11px 0 20px 0
+          border: 1px $border-color solid
+          border-radius: 3px
+    .new-comment
+      .header
+        font-size: 15px
+        font-weight: 900
+      form
+        .form-group
+          margin: 10px 0
 
-    

@@ -1,0 +1,9 @@
+.stock-link
+  - if current_user.stocks? item
+    = link_to item_stock_path(item), method: :delete, class: "btn btn-primary", data: {toggle: "btn", "toggle-class": "btn-primary btn-danger"} do
+      %span.active ストック済み
+      %span 解除
+  - else
+    = link_to item_stock_path(item), method: :post, class: "btn btn-default" do
+      .glyphicon.glyphicon-folder-open
+      ストック

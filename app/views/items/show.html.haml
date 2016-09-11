@@ -3,36 +3,39 @@
     .row
       .col-md-9
         %h2= @item.title
-        .field
-          #{"Tag".pluralize(@item.tags.size)}: #{render @item.tags}
-        .field
-          Author: #{render @item.author}
+        .tags
+          = render @item.tags
+        .author
+          = link_to @item.author do
+            = render partial: "users/icon", locals: {user: @item.author}
+          #{link_to @item.author.username, @item.author}が#{@item.published_at.to_date}に投稿
       .col-md-3
         .stats.layout.horizontal.center
           .flex.layout.vertical.center
             .num= @item.stockers_count
-            .unit= "Stocker".pluralize(@item.stockers_count)
+            .unit ストック
           .flex.layout.vertical.center
             .num= @item.comments_count
-            .unit= "Comment".pluralize(@item.comments_count)
-        .actions.layout.vertical
-          = stock_link_of @item, btn_type: "default"
+            .unit コメント
+        .actions
+          = render partial: "items/stock", locals: {item: @item}
           - if @item.author == current_user
-            .layout.horizontal
-              = link_to "Edit", edit_item_path(@item), class: "flex btn btn-default"
-              = link_to "Destroy", @item, method: :delete, data: {confirm: "Are you sure?"}, class: "flex btn btn-danger"
+            .own.layout.horizontal
+              = link_to "編集", edit_item_path(@item), class: "flex btn btn-default"
+              = link_to "削除", @item, method: :delete, data: {confirm: "Are you sure?"}, class: "flex btn btn-danger"
 .container
   .row
     .col-md-12
       .body
-        = @item.body.html_safe
-      - if @item.comments.length > 0
-        %hr
-        .comments
-          = render @item.comments
-      - if user_signed_in?
-        %hr
-        .new-comment
-          %h2 New comment
-          = render "comments/form"
+        = md @item.body
+      .comments-area
+        - if @item.comments.length > 0
+          .comments
+            = render @item.comments
+        - if user_signed_in?
+          .new-comment
+            .header
+              = render partial: "users/icon", locals: {user: current_user}
+              コメントを投稿する
+            = render "comments/form"
 

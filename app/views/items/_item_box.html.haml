@@ -1,5 +1,6 @@
 .item-box
-  = render partial: "users/icon", locals: {user: user}
+  = link_to user do
+    = render partial: "users/icon", locals: {user: user}
   .content
     .header= header
     .title

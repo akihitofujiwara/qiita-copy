@@ -1,4 +1,4 @@
 = simple_form_for [@item, @item.comments.build], :html => { :class => 'form-horizontal' } do |f|
-  = f.input :body, input_html: {cols: 100, rows: 5}
-  = f.button :submit, "Save", class: "btn-primary"
+  = f.input :body, input_html: {cols: 100, rows: 5}, label: false, placeholder: "コメントを入力してください"
+  .pull-right= f.button :submit, "投稿", class: "btn-primary"
 

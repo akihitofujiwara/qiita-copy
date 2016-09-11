@@ -1,6 +1,6 @@
 .follow-link
   - if current_user.follows? followee
-    = link_to followee_following_path(followee), method: :delete, class: "btn btn-primary", data: {"toggle-class": "btn-primary btn-danger"} do
+    = link_to followee_following_path(followee), method: :delete, class: "btn btn-primary", data: {toggle: "btn", "toggle-class": "btn-primary btn-danger"} do
       %span.active フォロー中
       %span 解除
   - else

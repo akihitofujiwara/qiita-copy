@@ -1,9 +1,11 @@
 .comment
-  Commented by
-  = link_to comment.commenter.email, comment.commenter
-  - if comment.commenter == current_user
-    .pull-right
-      = link_to "Destroy", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"
+  = link_to comment.commenter do
+    = render partial: "users/icon", locals: {user: comment.commenter}
+  = link_to comment.commenter.username, comment.commenter
+  .pull-right
+    - if comment.commenter == current_user
+      = link_to "削除", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?"}
+    = comment.updated_at.strftime("%Y-%m-%d %H:%M:%S")
   .body
-    = comment.body
+    = md comment.body
 
