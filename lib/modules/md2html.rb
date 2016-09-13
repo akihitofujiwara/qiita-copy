@@ -1,7 +1,14 @@
 module Md2html
   class HTMLwithCoderay < Redcarpet::Render::HTML
     def block_code(code, language)
-      CodeRay.scan(code, language).div
+      CodeRay.scan(code,
+        case language.to_s
+        when "rb" then "ruby"
+        when "yml" then "yaml"
+        when "" then "md"
+        else language.match(/\w+/)[0]
+        end
+      ).div
     end
   end
 
