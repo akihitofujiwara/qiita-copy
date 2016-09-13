@@ -6,3 +6,4 @@
 /tmp
 /vendor/bundle/
 /vendor/assets/bower_components/
+/coverage/

@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    redirect_to :back, notice: "Item was successfully destroyed."
+    redirect_to (request.referer == draft_items_path ? :back : mines_path), notice: "Item was successfully destroyed."
   end
 
   def md2html

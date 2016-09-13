@@ -1,113 +1,55 @@
-require 'rails_helper'
-require 'features/contexts/initial_context'
+require "rails_helper"
 
 feature "Items" do
-  include_context "initial_context"
+  given!(:user) { create(:user) }
+  given!(:item) { create(:item, author: user) }
+  given!(:other_item) { create(:item, author: user) }
 
-  feature "new, create" do
-    background {
-      login_as user, scope: :user
-      visit new_item_path
-    }
-
-    scenario "create" do
-      fill_in "Title", with: "Third item"
-      fill_in "Tags", with: "stylus coffee"
-      fill_in "Body", with: "hello"
-      click_on "Save"
-      expect(page).to have_content "Item was successfully created."
-    end
+  background do
+    login_as user, scope: :user
+    visit root_path
   end
 
-  feature "edit, update" do
-    background {
-      login_as user, scope: :user
-      visit edit_item_path public_item
-    }
-
-    scenario "update" do
-      select "Private", from: "item_scope"
-      click_on "Save"
-      expect(page).to have_content "Item was successfully updated."
+  scenario "記事を投稿する" do
+    click_on "投稿する"
+    within("#new_item") do
+      fill_in "item_title", with: "タイトル"
+      fill_in "item_tag_list", with: "ruby rails"
+      fill_in "item_body", with: "# こんにちは"
+      expect { click_on "投稿する" }.to change { user.items.count }.by(1)
     end
+    expect(user.items.last.tags.count).to eq(2)
   end
 
-  feature "destroy" do
-    background {
-      login_as user, scope: :user
-      visit user_item_path(user, public_item)
-    }
-
-    scenario "destroy" do
-      within ".subject-actions" do
-        click_on "Destroy"
-      end
-      expect(page).to have_content "Item was successfully destroyed."
-    end
+  scenario "検索する" do
+    find("body > header input[type=\"search\"]").set("user:#{user.username} #{item.title}")
+    click_on "検索"
+    expect(page).to have_content(item.title)
+      .and have_no_content(other_item.title)
   end
 
-  feature "show" do
-    background {
-      login_as user, scope: :user
-      visit user_item_path(user, public_item)
-    }
-    scenario "show" do
-      expect(page).to have_content public_item.author.email
-      expect(page).to have_content public_item.tags.first.name
-      expect(page).to have_content public_item.title
-      expect(page).to have_content "#{public_item.stockers_count} stockers"
-      expect(page).to have_content public_item.body
-      expect(page).to have_content public_item.comments.first.body
+  context "個別記事" do
+    background do
+      click_on "自分の投稿"
+      click_on item.title
     end
-  end
 
-  feature "stock, unstock" do
-    background {
-      login_as user, scope: :user
-      visit user_item_path(other_user, other_item)
-    }
-
-    context "already stocked" do
-      scenario "unstock" do
-        expect(page).to have_content "Unstock"
-        click_on "Unstock"
-        expect(page).to have_content "Stock"
+    scenario "記事を更新する" do
+      within("body > .header") { click_on "編集" }
+      within("body > form") do
+        fill_in "item_title", with: "#{item.title} hoge"
+        fill_in "item_tag_list", with: "#{item.tag_list} hoge"
+        fill_in "item_body", with: "#{item.body} hoge"
+        find("#item_scope", visible: false).set "private"
+        expect do
+          click_button "投稿する"
+          item.reload
+        end.to change { [item.title, item.tag_list, item.body, item.scope] }
       end
     end
 
-    context "not stocked yet" do
-      background {
-        user.unstock other_item
-        visit current_path
-      }
-
-      scenario "stock" do
-        expect(page).to have_content "Stock"
-        click_on "Stock"
-        expect(page).to have_content "Unstock"
-      end
-    end
-  end
-
-  feature "comment" do
-    background {
-      login_as user, scope: :user
-      visit user_item_path(user, public_item)
-    }
-
-    scenario "create" do
-      fill_in "Body", with: "Dislike!"
-      click_on "Save"
-      expect(page).to have_content "Dislike!"
-    end
-
-    scenario "destroy" do
-      within ".comments" do
-        click_on "Destroy"
-      end
-      expect(page).not_to have_content comment.body
+    scenario "記事を削除する" do
+      expect { click_on "削除" }.to change { user.items.count }.by(-1)
     end
   end
 end
-
-

@@ -1,74 +1,40 @@
 require 'rails_helper'
-require 'features/contexts/initial_context'
 
 feature "Home" do
-  include_context "initial_context"
+  given!(:user) { create(:user) }
 
-  feature "root" do
-    background { visit root_path }
+  background do
+    visit root_path
+  end
 
-    context "before sign in" do
-      scenario "items" do
-        expect(page).to have_content public_item.title
-        expect(page).not_to have_content private_item.title
-      end
-
-      scenario "sign in" do
-        click_on "Sign In"
-        fill_in "Email", with: user.email
-        fill_in "Password", with: user.password
-        click_on "Sign in"
-        expect(page).to have_content "Signed in successfully."
-      end
+  scenario "ログイン" do
+    within ".login" do
+      fill_in "user_email", with: user.email
+      fill_in "user_password", with: user.password
+      click_on "ログイン"
     end
+    expect(page).to have_content("ログアウト")
+  end
 
-    context "after sign in" do
-      background {
-        login_as user, scope: :user
-        visit current_path
-      }
+  scenario "Twitterでログイン" do
+    create(:user, provider: :twitter, uid: OmniAuth.config.mock_auth[:twitter].uid )
+    click_on "Twitterで新規登録/ログイン"
+    expect(page).to have_content("ログアウト")
+  end
 
-      scenario "sign in" do
-        expect(page).to have_content "Sign Out"
-      end
+  scenario "メールアドレスで登録" do
+    within ".signup" do
+      fill_in "user_username", with: "username"
+      fill_in "user_email", with: "email@email.com"
+      fill_in "user_password", with: "password"
+      expect { click_on "登録" }.to change { User.count }
     end
   end
 
-  feature "items" do
-    background {
-      login_as user, scope: :user
-      visit items_path
-    }
-
-    scenario "items" do
-      expect(page).to have_content public_item.title
-      expect(page).not_to have_content private_item.title
-    end
-  end
-
-  feature "mines" do
-    background {
-      login_as user, scope: :user
-      visit mines_path
-    }
-
-    scenario "mines" do
-      expect(page).to have_content public_item.title
-      expect(page).to have_content private_item.title
-      expect(page).not_to have_content other_item.title
-    end
-  end
-
-  feature "stocks" do
-    background {
-      login_as user, scope: :user
-      visit stocks_path
-    }
-
-    scenario "stocks" do
-      expect(page).to have_content other_item.title
-      expect(page).not_to have_content public_item.title
-    end
+  scenario "Twitterで登録" do
+    click_on "Twitterで新規登録/ログイン"
+    fill_in "user_email", with: "email@email.com"
+    expect { click_on "登録" }.to change { User.count }
   end
 end
 

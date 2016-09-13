@@ -1,5 +1,4 @@
 class Item < ApplicationModel
-  using Kansuu
   belongs_to :author, class_name: "User"
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
@@ -14,12 +13,12 @@ class Item < ApplicationModel
   scope :recent_stocked, -> { select("items.*, stocks.created_at").joins(:stocks).order('stocks.created_at desc').uniq }
   scope :search, -> q {
     q.split(" ")
-      .map(&-> it { it.match(/((\S+):)?(\S+)/)} >> :to_a) # [ ["user:hoge", "user:", "user", "hoge"] ]
-      .group_by(&at[2])
+      .map(&-> it { it.match(/((\S+):)?(\S+)/)}) # [ ["user:hoge", "user:", "user", "hoge"] ]
+      .group_by(&-> it { it[2] })
       .to_a
       .reduce(self, &-> x, y {
         type, matches = y
-        x.send "search_by_#{(type || "title").pluralize}", matches.map(&at[3])
+        x.send "search_by_#{(type || "title").pluralize}", matches.map(&-> it { it[3] })
       })
   }
   scope :search_by_users, -> xs { joins(:author).where(User.arel_table[:username].eq_any xs) }

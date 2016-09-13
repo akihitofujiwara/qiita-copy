@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def twitter
-    user_sined_in? ? update_user : sign_in_or_register
+    user_signed_in? ? update_user : sign_in_or_register
   end
 
   private

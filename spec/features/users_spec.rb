@@ -1,71 +1,19 @@
-require 'rails_helper'
-require 'features/contexts/initial_context'
+require "rails_helper"
 
 feature "Users" do
-  include_context "initial_context"
+  given!(:user) { create(:user) }
 
-  feature "show" do
-    background {
-      login_as user, scope: :user
-      visit user_path(user)
-    }
-
-    scenario "show" do
-      expect(page).to have_content user.email
-      expect(page).to have_content "#{user.followers.count} #{"follower".pluralize(user.followers.count)}"
-      expect(page).to have_content "#{user.stocked_items.count} stocked #{"item".pluralize(user.stocked_items.count)}"
-      expect(page).to have_content user.items.first.title
-    end
-
-    context "me" do
-      background {
-        visit user_path(user)
-      }
-
-      scenario "show" do
-        expect(page).not_to have_link "Follow"
-      end
-    end
-
-    context "other" do
-      background {
-        visit user_path(other_user)
-      }
-
-      scenario "show" do
-        expect(page).to have_link "Follow"
-      end
-    end
+  background do
+    login_as user, scope: :user
+    visit root_path
+    click_on "設定"
   end
 
-  feature "follow, unfollow" do
-    background {
-      login_as user, scope: :user
-      visit user_path(other_user)
-    }
-
-    context "not followed yet" do
-      scenario "follow" do
-        expect(page).to have_content "Follow"
-        click_on "Follow"
-        expect(page).to have_content "Unfollow"
-      end
-    end
-
-    context "already followed" do
-      background {
-        user.follow other_user
-        visit current_path
-      }
-
-      scenario "unfollow" do
-        expect(page).to have_content "Unfollow"
-        click_on "Unfollow"
-        expect(page).to have_content "Follow"
-      end
-    end
+  scenario "ユーザーを更新する" do
+    fill_in "ユーザー名", with: "#{user.username}_hoge"
+    expect do
+      click_on "保存する"
+      user.reload
+    end.to change { user.username }
   end
 end
-
-
-

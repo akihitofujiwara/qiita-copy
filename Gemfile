@@ -14,7 +14,6 @@ gem 'devise'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
-gem 'kansuu'
 gem 'devise-bootstrap-views'
 gem 'bower-rails'
 gem 'omniauth-twitter'
@@ -22,15 +21,18 @@ gem 'toastr_rails'
 gem 'redcarpet'
 gem 'coderay'
 
-group :test, :development do
-  gem 'rspec-rails'
-  gem 'capybara'
-end
-
 group :development do
   gem 'spring'
   gem 'quiet_assets'
   gem 'html2haml'
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'simplecov'
 end
 
 group :production do

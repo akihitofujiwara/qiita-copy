@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe Comment, type: :model do
-  let (:user) { User.new }
+  let! (:user) { create :user }
 
   describe "#stocks?, #stock, #unstock" do
-    let (:item) { Item.new }
+    let! (:item) { create :item }
     subject { user.stocks? item }
     context "before stock" do
       it { is_expected.to be false }
@@ -21,7 +21,7 @@ describe Comment, type: :model do
   end
 
   describe "#follows?, #follow, #unfollow" do
-    let (:tag) { Tag.new }
+    let! (:tag) { create :tag }
     subject { user.follows? tag }
     context "before follow" do
       it { is_expected.to be false }

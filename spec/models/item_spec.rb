@@ -1,20 +1,48 @@
 require "rails_helper"
 
 describe Item, :type => :model do
-  let (:item) { Item.new }
-  before {
-    item.tags.build name: "tag1"
-    item.tags.build name: "tag2"
-  }
+  let! (:user) { create(:user) }
+  let! (:item) { create(:item, author: user) }
+  let! (:tag) { item.tags.first }
+
+  describe "#search" do
+    subject { Item.search("#{item.title} user:#{user.username} tag:#{tag.name}").first.title }
+    it { is_expected.to eq item.title}
+  end
+
+  describe "#search_by_users" do
+    subject { Item.search_by_users([user.username]).first.title }
+    it { is_expected.to eq item.title}
+  end
+
+  describe "#search_by_tags" do
+    subject { Item.search_by_tags([tag.name]).first.title }
+    it { is_expected.to eq item.title}
+  end
+
+  describe "#search_by_titles" do
+    subject { Item.search_by_titles([item.title]).first.title }
+    it { is_expected.to eq item.title}
+  end
 
   describe "#tag_list" do
     subject {item.tag_list}
-    it { is_expected.to eq "tag1 tag2" }
+    it { is_expected.to eq (item.tags.map(&:name).join " ")}
   end
 
   describe "#tag_list=" do
-    before { item.tag_list = "tag3 tag4 tag5" }
-    subject { item.tags }
-    it { is_expected.to have_attributes(length: 3) }
+    before { item.tag_list = "hoge fuga" }
+    subject { item.tag_list }
+    it { is_expected.to eq "hoge fuga" }
+  end
+
+  describe "#public?" do
+    subject { item.public? }
+    it { is_expected.to eq true }
+  end
+
+  describe "#private?" do
+    subject { item.private? }
+    it { is_expected.to eq false }
   end
 end
