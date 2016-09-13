@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i(show) do
+    delete :twitter, on: :collection, to: "users#unlink_twitter"
     resources :items, only: %i(show)
     resource :following, only: %i(create destroy)
   end

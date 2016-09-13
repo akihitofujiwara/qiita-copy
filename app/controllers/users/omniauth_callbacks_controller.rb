@@ -5,8 +5,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
     def update_user
-      current_user.update provider: auth_env.provider, uid: auth_env.uid
-      redirect_to :back, notice: "連携しました。"
+      current_user.update provider: auth_env.provider, uid: auth_env.uid, icon_url: auth_env.info.image
+      redirect_to edit_user_registration_path(current_user), notice: "連携しました。"
     end
 
     def sign_in_or_register
@@ -14,6 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         provider: auth_env.provider,
         uid: auth_env.uid
       )
+        user.update icon_url: auth_env.info.image
         sign_in_and_redirect user
       else
         session["user_attrs"] = auth_env.except(:extra)

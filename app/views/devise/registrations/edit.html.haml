@@ -9,5 +9,11 @@
             = f.error_notification
             = f.input :username, label: "ユーザー名"
             = f.input :email, label: "メールアドレス"
+            .form-group.social
+              %label 外部サービス
+              - if current_user.provider.blank?
+                = link_to "Twitterログイン", omniauth_authorize_path(:user, :twitter), class: "btn btn-twitter"
+              - else
+                = link_to "Twitterの紐付けを解除", twitter_users_path, method: :delete, class: "btn btn-default"
             = f.submit "保存する", class: 'btn btn-primary'
 
