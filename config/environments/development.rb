@@ -11,3 +11,7 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
 end
+
+Devise.setup do |config|
+  config.omniauth :twitter, "Aph41KNrArlHyJUl2JrOabfqZ", "vAOFQCP9uR1TShxfpXEBaiwOyJr420uYV6hJnHndUT8uX14kJc"
+end
